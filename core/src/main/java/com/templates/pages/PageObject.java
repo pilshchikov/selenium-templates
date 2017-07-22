@@ -1,6 +1,6 @@
 package com.templates.pages;
 
-import com.templates.Driver;
+import com.templates.core.Driver;
 import org.openqa.selenium.*;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.PageFactory;
@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.FluentWait;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementDecorator;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
@@ -19,8 +20,8 @@ public class PageObject {
     private Integer implicitWait;
 
     public PageObject(Driver driver, Integer implicitWait) {
-        PageFactory.initElements(new HtmlElementDecorator(new HtmlElementLocatorFactory(driver.getWebDriver())), this);
-        this.webDriver = driver.getWebDriver();
+        PageFactory.initElements(new HtmlElementDecorator(new HtmlElementLocatorFactory(driver.webDriver())), this);
+        this.webDriver = driver.webDriver();
         this.implicitWait = implicitWait;
     }
 
@@ -34,6 +35,10 @@ public class PageObject {
 
     public Boolean waitForNotPresent(WebElement element, Integer... waitInSec) {
         return waitFor(ExpectedConditions.invisibilityOf(element), waitInSec);
+    }
+
+    public <T extends WebElement> Boolean waitForListPresent(List<T> elementList, Integer... waitInSec) {
+        return waitFor(ExpectedConditions.visibilityOfAllElements((List<WebElement>) elementList), waitInSec);
     }
 
     private Boolean waitFor(ExpectedCondition condition, Integer... waitInSec) {
@@ -51,11 +56,5 @@ public class PageObject {
         } catch (TimeoutException e) {
             return false;
         }
-    }
-
-    //@Attachment("{0}")
-    public byte[] makeScreenShot(String name) {
-
-        return ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.BYTES);
     }
 }

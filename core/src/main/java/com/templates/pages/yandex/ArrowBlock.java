@@ -9,7 +9,7 @@ import ru.yandex.qatools.htmlelements.element.HtmlElement;
 public class ArrowBlock extends HtmlElement {
 
     @Name("Search button")
-    @FindBy(css = ".search2__button")
+    @FindBy(css = ".suggest2-form__button")
     public HtmlElement searchBtn;
 
     @Name("Search input")
