@@ -1,20 +1,25 @@
-package com.templates;
+package com.templates.core;
 
 import com.templates.enums.DriverType;
 import com.templates.providers.SystemProvider;
 import lombok.Getter;
+import lombok.experimental.Accessors;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
+
 public class Driver {
 
-    @Getter(lazy = true)
-    private final RemoteWebDriver webDriver = getDriver(SystemProvider.getDriverType());
+    private DriverType driverType = SystemProvider.getDriverType();
 
-    private RemoteWebDriver getDriver(DriverType driverType) {
+    @Accessors(fluent = true)
+    @Getter(lazy = true)
+    private final RemoteWebDriver webDriver = getWebDriver();
+
+    private RemoteWebDriver getWebDriver() {
         switch (driverType) {
             case CHROME:
                 return new ChromeDriver(DesiredCapabilities.chrome());
@@ -40,6 +45,6 @@ public class Driver {
     }
 
     public void close() {
-        if (webDriver != null) webDriver.quit();
+        if (webDriver() != null) webDriver().quit();
     }
 }

@@ -1,16 +1,15 @@
 package com.templates.testcases;
 
-import com.templates.Driver;
+import com.templates.core.Driver;
 import org.junit.After;
 import org.junit.Before;
 
 public class WebTestCase {
 
-    protected Driver driver;
+    protected final Driver driver = new Driver();
 
     @Before
     public void setUp() {
-        driver = new Driver();
     }
 
     @After
