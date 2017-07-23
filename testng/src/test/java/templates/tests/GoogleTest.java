@@ -1,12 +1,11 @@
-package com.templates.tests;
+package templates.tests;
 
-import com.templates.steps.GoogleSteps;
-import com.templates.testcases.WebTestCase;
-import io.qameta.allure.Description;
+
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import io.qameta.allure.junit4.DisplayName;
-import org.junit.Test;
+import org.testng.annotations.Test;
+import templates.steps.GoogleSteps;
+import templates.testcases.WebTestCase;
 
 @Feature("Search")
 @Story("google.com")
@@ -14,9 +13,7 @@ public class GoogleTest extends WebTestCase {
 
     private final GoogleSteps steps = new GoogleSteps(driver);
 
-    @Test
-    @DisplayName("Simple search test")
-    @Description("Simply open google.com, type search phrase and see result items")
+    @Test(testName = "Simple search test", description = "Simply open google.com, type search phrase and see result items")
     public void simpleSearch() throws Exception {
         steps.openGoogle();
         steps.enterSearchPhrase("yandex browser");

@@ -1,4 +1,4 @@
-package com.templates.pages.yandex;
+package templates.pages.yandex;
 
 import org.openqa.selenium.support.FindBy;
 import ru.yandex.qatools.htmlelements.annotations.Name;

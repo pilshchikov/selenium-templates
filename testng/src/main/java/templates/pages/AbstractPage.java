@@ -1,7 +1,8 @@
-package com.templates.pages;
+package templates.pages;
 
 import com.templates.annotations.Url;
 import com.templates.core.Driver;
+import com.templates.pages.PageObject;
 import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;

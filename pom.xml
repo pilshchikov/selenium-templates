@@ -12,6 +12,7 @@
         <module>models</module>
         <module>core</module>
         <module>junit4</module>
+        <module>testng</module>
     </modules>
 
     <properties>

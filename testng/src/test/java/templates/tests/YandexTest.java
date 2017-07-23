@@ -1,12 +1,11 @@
-package com.templates.tests;
+package templates.tests;
 
-import com.templates.steps.YandexSteps;
-import com.templates.testcases.WebTestCase;
-import io.qameta.allure.Description;
+
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import io.qameta.allure.junit4.DisplayName;
-import org.junit.Test;
+import org.testng.annotations.Test;
+import templates.steps.YandexSteps;
+import templates.testcases.WebTestCase;
 
 @Feature("Search")
 @Story("yandex.ru")
@@ -14,9 +13,8 @@ public class YandexTest extends WebTestCase {
 
     private final YandexSteps steps = new YandexSteps(driver);
 
-    @Test
-    @DisplayName("Simple search test")
-    @Description("Simply open yandex.ru, type search phrase and see result items")
+    @Test(testName = "Simple search test",
+            description = "Simply open yandex.ru, type search phrase and see result items")
     public void simpleSearch() throws Exception {
         steps.openYandex();
         steps.enterSearchPhrase("google chrome");

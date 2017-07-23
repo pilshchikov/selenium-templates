@@ -1,8 +1,8 @@
-package com.templates.steps;
+package templates.steps;
 
 import com.templates.core.Driver;
-import com.templates.pages.duckduckgo.DuckDuckGoPage;
 import io.qameta.allure.Step;
+import templates.pages.duckduckgo.DuckDuckGoPage;
 
 import static org.junit.Assert.assertTrue;
 
