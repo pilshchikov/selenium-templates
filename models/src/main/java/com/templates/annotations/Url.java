@@ -1,4 +1,4 @@
-package com.templates.pages.yandex;
+package com.templates.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -1,4 +1,4 @@
-package com.templates.tests.junit4.tests;
+package com.templates.tests;
 
 import com.templates.steps.YandexSteps;
 import com.templates.testcases.WebTestCase;

@@ -1,7 +1,7 @@
 package com.templates.pages;
 
 import com.templates.core.Driver;
-import com.templates.pages.yandex.Url;
+import com.templates.annotations.Url;
 import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
@@ -18,8 +18,8 @@ public class AbstractPage extends PageObject {
         super(driver, 10);
     }
 
-    @Step("Кликаем на элемент: \"{0}\"")
-    public <T extends WebElement> void clickOn(T element) {
+    @Step("Кликаем на элемент: \"{element}\"")
+    protected <T extends WebElement> void clickOn(T element) {
 
         log.info("Кликаем на элемент: \"" + element + "\"");
         try {
@@ -30,24 +30,23 @@ public class AbstractPage extends PageObject {
         makeScreenShot("Кликаем на элемент: \"" + element + "\"");
     }
 
-    @Step("Вводим текст \"{1}\" в {0}")
-    public <T extends WebElement> void inputText(T element, String text) {
+    @Step("Вводим текст \"{text}\" в {element}")
+    protected <T extends WebElement> void inputText(T element, String text) {
         log.info("Вводим текст: " + text + " в поле: " + element);
         element.sendKeys(text);
         makeScreenShot("Вводим текст: " + text + " в элемент: " + element);
     }
 
-
-    @Attachment("{0}")
+    @Attachment(value = "{name}", type = "image/png")
     public byte[] makeScreenShot(String name) {
         return ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.BYTES);
     }
 
-    public <T extends WebElement> void clearText(T element) {
+    protected <T extends WebElement> void clearText(T element) {
         element.clear();
     }
 
-    @Step("Open url {0}")
+    @Step("Open url {path}")
     protected void openPage(String path) {
         getDriver().get(path);
     }
