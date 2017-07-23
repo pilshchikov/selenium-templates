@@ -2,6 +2,7 @@ package com.templates.steps;
 
 import com.templates.core.Driver;
 import com.templates.pages.yandex.YandexPage;
+import io.qameta.allure.Step;
 
 import static org.junit.Assert.assertTrue;
 
@@ -23,15 +24,19 @@ public class YandexSteps extends CommonSteps {
         assertTrue(page().waitForPresent(yandexPage.arrow));
     }
 
+    @Step("Enter search phrase: {phrase}")
     public void enterSearchPhrase(String phrase) {
         yandexPage.typeSearchPhrase(phrase);
     }
 
+    @Step("Click search button")
     public void search() {
         yandexPage.search();
     }
 
+    @Step("Results is present")
     public void resultsIsPresent() {
         assertTrue("Results is not loaded", page().waitForListPresent(yandexPage.resultItems));
+        page().makeScreenShot("Results");
     }
 }
