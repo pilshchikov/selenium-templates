@@ -1,10 +1,10 @@
-package templates.steps;
+package com.templates.steps;
 
 
 import com.templates.core.Driver;
+import com.templates.pages.AbstractPage;
 import lombok.Getter;
 import lombok.experimental.Accessors;
-import templates.pages.AbstractPage;
 
 public class CommonSteps {
 

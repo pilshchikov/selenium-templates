@@ -1,4 +1,4 @@
-package templates.pages;
+package com.templates.pages;
 
 import com.templates.annotations.Url;
 import com.templates.core.Driver;

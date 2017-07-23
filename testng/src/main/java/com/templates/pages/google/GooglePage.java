@@ -1,12 +1,12 @@
-package templates.pages.google;
+package com.templates.pages.google;
 
 import com.templates.annotations.Url;
 import com.templates.core.Driver;
+import com.templates.pages.AbstractPage;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.FindBy;
 import ru.yandex.qatools.htmlelements.annotations.Name;
 import ru.yandex.qatools.htmlelements.element.HtmlElement;
-import templates.pages.AbstractPage;
 
 import java.util.List;
 

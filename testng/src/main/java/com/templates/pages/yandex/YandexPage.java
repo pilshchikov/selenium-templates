@@ -1,8 +1,8 @@
-package templates.pages.yandex;
+package com.templates.pages.yandex;
 
 import com.templates.annotations.Url;
 import com.templates.core.Driver;
-import templates.pages.AbstractPage;
+import com.templates.pages.AbstractPage;
 
 import java.util.List;
 

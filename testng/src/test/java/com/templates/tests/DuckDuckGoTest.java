@@ -1,10 +1,11 @@
-package templates.tests;
+package com.templates.tests;
 
+import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;
-import templates.steps.DuckDuckGoSteps;
-import templates.testcases.WebTestCase;
+import com.templates.steps.DuckDuckGoSteps;
+import com.templates.testcases.WebTestCase;
 
 @Feature("Search")
 @Story("duckduckgo.com")
@@ -12,8 +13,8 @@ public class DuckDuckGoTest extends WebTestCase {
 
     private final DuckDuckGoSteps steps = new DuckDuckGoSteps(driver);
 
-    @Test(testName = "Simple search test",
-            description = "Simply open duckduckgo.com, type search phrase and see result items")
+    @Test(description = "Simple search test", groups = "default1")
+    @Description("Simply open duckduckgo.com, type search phrase and see result items")
     public void simpleSearch() throws Exception {
         steps.openDuckDuckGo();
         steps.enterSearchPhrase("duckduckgo have convenient layouts");

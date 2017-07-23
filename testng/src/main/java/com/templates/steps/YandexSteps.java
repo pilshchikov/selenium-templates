@@ -1,8 +1,8 @@
-package templates.steps;
+package com.templates.steps;
 
 import com.templates.core.Driver;
+import com.templates.pages.yandex.YandexPage;
 import io.qameta.allure.Step;
-import templates.pages.yandex.YandexPage;
 
 import static org.junit.Assert.assertTrue;
 

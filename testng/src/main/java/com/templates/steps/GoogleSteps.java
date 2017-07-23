@@ -1,9 +1,9 @@
-package templates.steps;
+package com.templates.steps;
 
 
 import com.templates.core.Driver;
 import io.qameta.allure.Step;
-import templates.pages.google.GooglePage;
+import com.templates.pages.google.GooglePage;
 
 import static org.junit.Assert.assertTrue;
 
