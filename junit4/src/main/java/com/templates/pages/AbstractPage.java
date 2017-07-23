@@ -1,7 +1,7 @@
 package com.templates.pages;
 
-import com.templates.core.Driver;
 import com.templates.annotations.Url;
+import com.templates.core.Driver;
 import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
@@ -18,23 +18,28 @@ public class AbstractPage extends PageObject {
         super(driver, 10);
     }
 
-    @Step("Кликаем на элемент: \"{element}\"")
+    @Step("Click on : \"{element}\"")
     protected <T extends WebElement> void clickOn(T element) {
 
-        log.info("Кликаем на элемент: \"" + element + "\"");
+        log.info("Click on: \"" + element + "\"");
         try {
             element.click();
         } catch (Exception e) {
-            throw new Error("Не удалось нажать на " + element + " Message: " + e.getMessage());
+            throw new Error("Can't click on " + element + " Message: " + e.getMessage());
         }
-        makeScreenShot("Кликаем на элемент: \"" + element + "\"");
+        makeScreenShot("Click on: \"" + element + "\"");
     }
 
-    @Step("Вводим текст \"{text}\" в {element}")
+    @Step("Type \"{text}\" in {element}")
     protected <T extends WebElement> void inputText(T element, String text) {
-        log.info("Вводим текст: " + text + " в поле: " + element);
+        log.info("Type text: " + text + " in field: " + element);
         element.sendKeys(text);
-        makeScreenShot("Вводим текст: " + text + " в элемент: " + element);
+        makeScreenShot("Type text: " + text + " in field: " + element);
+    }
+
+    @Step("Enter action sequence \"{seq}\" in {element}")
+    protected <T extends WebElement> void inputSeq(T element, CharSequence seq) {
+        element.sendKeys(seq);
     }
 
     @Attachment(value = "{name}", type = "image/png")
@@ -57,5 +62,6 @@ public class AbstractPage extends PageObject {
                 .findFirst()
                 .orElseThrow(() -> new Error("Page home url is not founded")))
                 .value());
+        getDriver().manage().window().maximize();
     }
 }

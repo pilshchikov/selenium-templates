@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>test.templates</artifactId>
@@ -39,15 +39,16 @@
                         <listener>io.qameta.allure.junit4.AllureJunit4</listener>
                     </properties>
                     <includes>
-                        <include>
-                            **/*Test.java
-                        </include>
+                        <include>**/*.java</include>
                     </includes>
                     <systemProperties>
-                        <allure.results.directory>
-                            target/allure-results
-                        </allure.results.directory>
+                        <allure.results.directory>target/allure-results</allure.results.directory>
                     </systemProperties>
+                    <threadCountMethods>3</threadCountMethods>
+                    <perCoreThreadCount>false</perCoreThreadCount>
+                    <useUnlimitedThreads>true</useUnlimitedThreads>
+                    <reuseForks>true</reuseForks>
+                    <parallel>all</parallel>
                 </configuration>
                 <dependencies>
                     <dependency>
@@ -67,6 +68,5 @@
             </plugin>
         </plugins>
     </build>
-
 
 </project>

@@ -24,6 +24,11 @@ public class TestWatcherRule extends TestWatcher {
         makeFailScreenShot();
     }
 
+    @Override
+    protected void finished(Description description) {
+        driver.webDriver().close();
+    }
+
     @Attachment("Test fail screenshot")
     public byte[] makeFailScreenShot() {
         return ((TakesScreenshot) driver.webDriver()).getScreenshotAs(OutputType.BYTES);

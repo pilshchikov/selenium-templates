@@ -1,6 +1,6 @@
 package com.templates.tests;
 
-import com.templates.steps.YandexSteps;
+import com.templates.steps.GoogleSteps;
 import com.templates.testcases.WebTestCase;
 import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
@@ -9,17 +9,17 @@ import io.qameta.allure.junit4.DisplayName;
 import org.junit.Test;
 
 @Feature("Search")
-@Story("yandex.ru")
-public class YandexTest extends WebTestCase {
+@Story("google.com")
+public class GoogleTest extends WebTestCase {
 
-    private final YandexSteps steps = new YandexSteps(driver);
+    private final GoogleSteps steps = new GoogleSteps(driver);
 
     @Test
     @DisplayName("Simple search test")
-    @Description("Simply open yandex.ru, type search phrase and see result items")
+    @Description("Simply open google.com, type search phrase and see result items")
     public void simpleSearch() throws Exception {
-        steps.openYandex();
-        steps.enterSearchPhrase("google chrome");
+        steps.openGoogle();
+        steps.enterSearchPhrase("yandex browser");
         steps.search();
         steps.resultsIsPresent();
     }
