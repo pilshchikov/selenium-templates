@@ -10,11 +10,12 @@ import org.testng.annotations.Test;
 
 @Feature("Search")
 @Story("google.com")
+@Test(groups = {"all", "google"})
 public class GoogleTest extends WebTestCase {
 
     private final GoogleSteps steps = new GoogleSteps(driver);
 
-    @Test(description = "Simple search test", groups = "default")
+    @Test(description = "Simple search test")
     @Description("Simply open google.com, type search phrase and see result items")
     public void simpleSearch() throws Exception {
         steps.openGoogle();

@@ -9,11 +9,12 @@ import com.templates.testcases.WebTestCase;
 
 @Feature("Search")
 @Story("duckduckgo.com")
+@Test(groups = {"all", "duckduckgo"})
 public class DuckDuckGoTest extends WebTestCase {
 
     private final DuckDuckGoSteps steps = new DuckDuckGoSteps(driver);
 
-    @Test(description = "Simple search test", groups = "default1")
+    @Test(description = "Simple search test")
     @Description("Simply open duckduckgo.com, type search phrase and see result items")
     public void simpleSearch() throws Exception {
         steps.openDuckDuckGo();

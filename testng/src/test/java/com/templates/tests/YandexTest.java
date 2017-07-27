@@ -10,11 +10,12 @@ import org.testng.annotations.Test;
 
 @Feature("Search")
 @Story("yandex.ru")
+@Test(groups = {"all", "yandex"})
 public class YandexTest extends WebTestCase {
 
     private final YandexSteps steps = new YandexSteps(driver);
 
-    @Test(description = "Simple search test", groups = "default")
+    @Test(description = "Simple search test")
     @Description("Simply open yandex.ru, type search phrase and see result items")
     public void simpleSearch() throws Exception {
         steps.openYandex();

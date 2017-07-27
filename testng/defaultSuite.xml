@@ -3,6 +3,11 @@
 
 <suite name="Suite1" verbose="1" parallel="methods" thread-count="3">
     <test name="simple search">
+        <groups>
+            <run>
+                <include name="all"/>
+            </run>
+        </groups>
         <packages>
             <package name="com.templates.tests"/>
         </packages>
