@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({DuckDuckGoTest.class, GoogleTest.class, YandexTest.class})
+@Suite.SuiteClasses({DuckDuckGoTest.class, GoogleTest.class, YandexTest.class, TwitterSuite.class})
 public class AllTestsSuite {
 
 }

@@ -11,7 +11,7 @@
     <modules>
         <module>models</module>
         <module>core</module>
-        <module>junit4</module>
+        <module>web.tests</module>
     </modules>
 
     <properties>
