@@ -32,7 +32,9 @@
 
 # Как запускать
 
-```mvn [lifecycle] -pl [module] -am [must be] -Dtest=AllTestsSuite [test suite, one test or one method (-Dtest=LoginTest#logIn)] -D[params]=[value]```
+```bash
+mvn [lifecycle] -pl [module] -am [must be] -Dtest=AllTestsSuite [test suite, one test or one method (-Dtest=LoginTest#logIn)] -D[params]=[value]
+```
 
 ### Params
  1) -Ddriver.type=[CHROME, REMOTE_CHROME] - каким драйвером запускаем
