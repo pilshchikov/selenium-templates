@@ -12,6 +12,7 @@
         <module>models</module>
         <module>core</module>
         <module>web.tests</module>
+        <module>android.tests</module>
     </modules>
 
     <properties>
@@ -42,10 +43,11 @@
 
         <!--selenium-->
         <selenium.version>3.4.0</selenium.version>
+        <appium.version>5.0.3</appium.version>
 
         <!--htmlelements-->
-        <htmlelements.version>1.17</htmlelements.version>
-        <htmlelements.matchers.version>1.17</htmlelements.matchers.version>
+        <htmlelements.version>1.18</htmlelements.version>
+        <htmlelements.matchers.version>1.18</htmlelements.matchers.version>
 
         <!--allure-->
         <allure.adapter.version>2.0-BETA17</allure.adapter.version>
@@ -53,6 +55,10 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>io.appium</groupId>
+            <artifactId>java-client</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
@@ -109,6 +115,11 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>io.appium</groupId>
+                <artifactId>java-client</artifactId>
+                <version>${appium.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>

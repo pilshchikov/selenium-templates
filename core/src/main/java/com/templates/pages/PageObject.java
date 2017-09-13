@@ -1,7 +1,10 @@
 package com.templates.pages;
 
 import com.templates.core.Driver;
+import com.templates.providers.SystemProvider;
 import com.templates.utils.CommonFunctions;
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 import org.openqa.selenium.ElementNotVisibleException;
@@ -25,6 +28,7 @@ public class PageObject {
     private final CommonFunctions functions = new CommonFunctions();
 
     protected RemoteWebDriver webDriver;
+    protected AppiumDriver appiumDriver;
     private Integer implicitWait;
 
     public PageObject(Driver driver, Integer implicitWait) {
@@ -33,8 +37,19 @@ public class PageObject {
         this.implicitWait = implicitWait;
     }
 
-    protected RemoteWebDriver getDriver() {
-        return webDriver;
+    public PageObject(AppiumDriver driver, Integer implicitWait) {
+        PageFactory.initElements(new AppiumFieldDecorator(driver), this);
+        this.webDriver = driver;
+        this.implicitWait = implicitWait;
+    }
+
+    protected <T extends RemoteWebDriver> T getDriver() {
+        switch (SystemProvider.getDriverType()) {
+            case ANDROID:
+                return (T) appiumDriver;
+            default:
+                return (T) webDriver;
+        }
     }
 
     public Boolean waitForPresent(WebElement element, Integer... waitInSec) {
@@ -46,7 +61,7 @@ public class PageObject {
     }
 
     public <T extends WebElement> Boolean waitForListPresent(List<T> elementList, Integer... waitInSec) {
-        return waitFor(() -> elementList.size() > 0, false, waitInSec);
+        return waitFor(() -> !elementList.isEmpty(), false, waitInSec);
     }
 
     private Boolean waitFor(Callable<Boolean> condition, Boolean exceptionConditionState, Integer... waitInSeconds) {

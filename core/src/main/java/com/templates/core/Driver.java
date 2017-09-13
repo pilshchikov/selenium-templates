@@ -2,6 +2,7 @@ package com.templates.core;
 
 import com.templates.enums.DriverType;
 import com.templates.providers.SystemProvider;
+import io.appium.java_client.AppiumDriver;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 import org.openqa.selenium.Platform;
@@ -18,6 +19,10 @@ public class Driver {
     @Accessors(fluent = true)
     @Getter(lazy = true)
     private final RemoteWebDriver webDriver = getWebDriver();
+
+    @Accessors(fluent = true)
+    @Getter(lazy = true)
+    private final AppiumDriver appiumDriver = getAndroidDriver();
 
     private RemoteWebDriver getWebDriver() {
         switch (driverType) {
@@ -44,7 +49,12 @@ public class Driver {
         return new RemoteWebDriver(SystemProvider.getHubURL(), capabilities);
     }
 
+    private AppiumDriver getAndroidDriver() {
+        return new RemoteDriver().getAndroidDriver();
+    }
+
     public void close() {
         if (webDriver() != null) webDriver().quit();
+        if (appiumDriver() != null) appiumDriver().quit();
     }
 }
