@@ -12,6 +12,10 @@ public class TwitterTestCase extends WebTestCase {
         return String.valueOf(new Random().nextInt(9999));
     }
 
+    protected String getMessage() {
+        return "Hello twitter! This is autotest. #autotest_" + getRandomDigits();
+    }
+
     protected User user = User.builder().build();
 
     @Before

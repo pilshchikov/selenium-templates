@@ -2,6 +2,7 @@ package com.templates.utils;
 
 import com.templates.annotations.Description;
 import com.templates.enums.AttachmentFormat;
+import com.templates.models.DescriptionModel;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
@@ -139,13 +140,13 @@ public class CommonFunctions {
      *
      * @param object объект
      */
-    public String getInfo(Object object) {
+    public <T extends DescriptionModel> String getInfo(Object object) {
 
         if (object == null)
             return "null\n";
         try {
             // Список нативных классов, чтобы отличать от наших кастомных
-            final List<Class> standardClasses = Arrays.asList(String.class, Boolean.class,
+            final List<Class> standardClasses = Arrays.asList(String.class, Boolean.class, Double.class,
                     Integer.class, Long.class, Float.class, Date.class);
             String objectName = "";
             StringBuilder result = new StringBuilder("");
@@ -154,6 +155,11 @@ public class CommonFunctions {
                 objectName = object.getClass().getAnnotation(Description.class).value();
                 result = result.append("\n_____| ").append(objectName).append("|_____");
             }
+
+            // Если есть интерфейс который позволяем вернуть данные из объекта, то добавляем эти данные
+            if (Arrays.stream(object.getClass().getInterfaces()).anyMatch(interf -> interf.equals(DescriptionModel.class)))
+                result.append("\n").append(((T) object).getDescription());
+
             // идем по полям
             for (Field field : FieldUtils.getAllFields(object.getClass())) {
                 if (field.isAnnotationPresent(Description.class)) {
@@ -174,11 +180,10 @@ public class CommonFunctions {
                                 .append(field.getAnnotation(Description.class).value())
                                 .append("+++++++\n");
                         List list = ((List) getValue(field, object));
-                        if (list == null || list.size() == 0)
+                        if (list == null || list.isEmpty())
                             result.append("пуст");
                         else {
-                            if (standardClasses.stream()
-                                    .anyMatch(o -> o.equals(list.get(0).getClass()))) {
+                            if (standardClasses.stream().anyMatch(o -> o.equals(list.get(0).getClass()))) {
                                 for (val item : list)
                                     result.append("\t-").append(item.toString()).append("\n");
                             } else {

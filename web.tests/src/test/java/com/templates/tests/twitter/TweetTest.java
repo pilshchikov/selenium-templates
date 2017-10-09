@@ -2,10 +2,14 @@ package com.templates.tests.twitter;
 
 import com.templates.steps.TwitterSteps;
 import com.templates.testcases.TwitterTestCase;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.Before;
 import org.junit.Test;
 
+@Feature("Twitter")
+@Story("Type message")
 public class TweetTest extends TwitterTestCase {
 
     private final TwitterSteps steps = new TwitterSteps(driver);
@@ -20,7 +24,7 @@ public class TweetTest extends TwitterTestCase {
     @Test
     @DisplayName("Type tweet")
     public void typeTweet() {
-        String message = "Hello twitter! This is autotest. #autotest_" + getRandomDigits();
+        String message = getMessage();
 
         steps.typeMessage(message);
         steps.messageIsDisplayed(user, message);
@@ -29,7 +33,7 @@ public class TweetTest extends TwitterTestCase {
     @Test
     @DisplayName("Delete tweet")
     public void deleteTweet() {
-        String message = "Hello twitter! This is autotest. #autotest_" + getRandomDigits();
+        String message = getMessage();
 
         steps.typeMessage(message);
         steps.messageIsDisplayed(user, message);

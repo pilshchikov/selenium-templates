@@ -10,7 +10,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-
 public class Driver {
 
     private DriverType driverType = SystemProvider.getDriverType();
@@ -22,22 +21,28 @@ public class Driver {
     private RemoteWebDriver getWebDriver() {
         switch (driverType) {
             case CHROME:
-                return new ChromeDriver(DesiredCapabilities.chrome());
+                return new ChromeDriver(chromeOptions());
             case REMOTE_CHROME:
                 return getRemoteWebDriver(DriverType.CHROME);
             default:
-                throw new Error("Cant find driver type" + driverType);
+                throw new Error("Cant find driver type " + driverType);
         }
+    }
+
+    private ChromeOptions chromeOptions() {
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--no-sandbox");
+        chromeOptions.addArguments("--headless");
+        chromeOptions.addArguments("--disable-gpu");
+        return chromeOptions;
     }
 
     private RemoteWebDriver getRemoteWebDriver(DriverType driverType) {
         DesiredCapabilities capabilities = null;
         switch (driverType) {
             case CHROME:
-                ChromeOptions chromeOptions = new ChromeOptions();
-                chromeOptions.addArguments("--no-sandbox");
                 capabilities = DesiredCapabilities.chrome();
-                capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
+                capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions());
                 capabilities.setPlatform(Platform.LINUX);
         }
 
