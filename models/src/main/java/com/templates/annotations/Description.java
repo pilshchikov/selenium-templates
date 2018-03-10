@@ -6,9 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Аннотация для описания объекта
- * <p>
- * Ставится над полем объекта, над листом объектов или над классом
+ * Description for class or class field which can be taken by CommonFunctions.getInfo(object)
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.TYPE})

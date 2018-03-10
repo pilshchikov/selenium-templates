@@ -1,7 +1,7 @@
 package com.templates.models;
 
 /**
- * Объект, который может вернуть свое описание
+ * Object can describe yourself
  */
 public interface DescriptionModel {
 

@@ -103,7 +103,7 @@ public class CommonFunctions {
         } catch (Exception e) {
             e.printStackTrace();
             log.error(e.getMessage());
-            throw new Error("При выполнении условия выпала ошибка: " + e.getMessage());
+            throw new Error("Error during waitFor: " + e.getMessage());
         }
     }
 
