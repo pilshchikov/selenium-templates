@@ -26,11 +26,11 @@ public class TwitterSteps extends CommonSteps {
     @Step("Login as {user.name}")
     public void loginAs(User user) {
         welcomePage.openSignInForm();
-        assertTrue("LogIn block is not present", page().waitForPresent(welcomePage.loginBlock));
+        present(welcomePage.loginBlock);
         welcomePage.enterEmail(user.email());
         welcomePage.enterPassword(user.password());
         welcomePage.pressSignIn();
-        assertTrue("Block is not disappeared", page().waitForNotPresent(welcomePage.loginBlock));
+        notPresent(welcomePage.loginBlock);
     }
 
     @Step("Check tweet timeline is open")
@@ -43,7 +43,7 @@ public class TwitterSteps extends CommonSteps {
         homePage.openTweetField();
         homePage.enterTweet(tweetText);
         homePage.tweet();
-        assertTrue("Tweet is not tweeted", page().waitForNotPresent(homePage.timeline.topTweetBox.tweetBtn));
+        notPresent(homePage.timeline.topTweetBox.tweetBtn);
     }
 
     @Step("Check message is displayed")
@@ -56,9 +56,9 @@ public class TwitterSteps extends CommonSteps {
     @Step("Delete message")
     public void deleteMessage(User user, String message) {
         homePage.pressDeleteTweet(user.name(), message);
-        assertTrue("Delete dialog is not present", page().waitForPresent(homePage.deleteDialog));
+        present(homePage.deleteDialog);
         homePage.agreeToDelete();
-        assertTrue("Delete dialog is not disappeared", page().waitForNotPresent(homePage.deleteDialog));
+        notPresent(homePage.deleteDialog);
     }
 
     @Step("Check message is deleted")

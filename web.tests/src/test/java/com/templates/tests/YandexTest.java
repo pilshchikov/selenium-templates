@@ -17,7 +17,7 @@ public class YandexTest extends WebTestCase {
     @Test
     @DisplayName("Simple search test")
     @Description("Simply open yandex.ru, type search phrase and see result items")
-    public void simpleSearch() throws Exception {
+    public void simpleSearch() {
         steps.openYandex();
         steps.enterSearchPhrase("google chrome");
         steps.search();

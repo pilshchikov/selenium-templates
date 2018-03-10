@@ -3,6 +3,7 @@ package com.templates.testdata;
 import com.templates.enums.AttachmentFormat;
 import com.templates.models.User;
 import com.templates.utils.CommonFunctions;
+import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import lombok.Getter;
 import lombok.experimental.Accessors;
@@ -36,7 +37,7 @@ public class StaticDataSupplier {
 
     private User getUserWrapped() {
         User foundedUser = users.stream().findFirst().orElse(null);
-        functions().takeAttachment(AttachmentFormat.TEXT, functions().getInfo(foundedUser), "Test user info");
+        Allure.addAttachment("Test user info", AttachmentFormat.TEXT.getAttachmentFormat(), functions().getInfo(foundedUser));
         return foundedUser;
     }
 }

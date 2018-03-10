@@ -7,6 +7,10 @@ import com.templates.utils.CommonFunctions;
 import io.qameta.allure.Step;
 import lombok.Getter;
 import lombok.experimental.Accessors;
+import org.junit.Assert;
+import ru.yandex.qatools.htmlelements.element.HtmlElement;
+
+import static org.junit.Assert.*;
 
 public class CommonSteps {
 
@@ -24,15 +28,11 @@ public class CommonSteps {
         this.driver = driver;
     }
 
-    /**
-     * Прикладываем информацию об объекте к отчету
-     *
-     * @param object         объект
-     * @param attachmentName название приложения
-     */
-    @Step("{attachmentName}")
-    public void attach(Object object, String attachmentName) {
+    protected void present(HtmlElement element) {
+        assertTrue(element.getName() + " is not present", page().waitForPresent(element));
+    }
 
-        functions().takeAttachment(AttachmentFormat.TEXT, functions().getInfo(object), attachmentName);
+    protected void notPresent(HtmlElement element) {
+        assertTrue(element.getName() + " is present", page().waitForNotPresent(element));
     }
 }

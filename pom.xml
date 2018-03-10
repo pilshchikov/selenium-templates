@@ -24,7 +24,6 @@
 
         <!--helpful utils-->
         <org.apache.commons.version>3.5</org.apache.commons.version>
-        <com.google.guava.version>21.0</com.google.guava.version>
         <joda.time.version>2.9.3</joda.time.version>
         <lambok.version>1.16.12</lambok.version>
         <json-simple.version>1.1.1</json-simple.version>
@@ -41,22 +40,19 @@
         <slf4j.version>1.7.23</slf4j.version>
 
         <!--selenium-->
-        <selenium.version>3.6.0</selenium.version>
+        <selenium.version>3.8.1</selenium.version>
+        <webdrivermanager.version>2.1.0</webdrivermanager.version>
 
         <!--htmlelements-->
         <htmlelements.version>1.18</htmlelements.version>
         <htmlelements.matchers.version>1.18</htmlelements.matchers.version>
 
         <!--allure-->
-        <allure.adapter.version>2.0-BETA19</allure.adapter.version>
+        <allure.adapter.version>2.6.0</allure.adapter.version>
         <allure.maven.version>2.9</allure.maven.version>
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-        </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
@@ -105,15 +101,14 @@
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-junit4</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava</artifactId>
-                <version>${com.google.guava.version}</version>
-            </dependency>
             <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-core</artifactId>
@@ -173,6 +168,11 @@
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-junit4</artifactId>
                 <version>${allure.adapter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.bonigarcia</groupId>
+                <artifactId>webdrivermanager</artifactId>
+                <version>${webdrivermanager.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

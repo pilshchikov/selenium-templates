@@ -1,10 +1,7 @@
 package com.templates.utils;
 
 import com.templates.annotations.Description;
-import com.templates.enums.AttachmentFormat;
 import com.templates.models.DescriptionModel;
-import lombok.Getter;
-import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.apache.commons.lang3.reflect.FieldUtils;
@@ -19,14 +16,8 @@ import java.util.function.Function;
 @Slf4j
 public class CommonFunctions {
 
-    @Accessors(fluent = true)
-    @Getter(lazy = true)
-    private final Attachments attachments = new Attachments();
-
     /**
-     * Безусловное ожидание в течение заданного времени
-     *
-     * @param millis - время ожидания в миллисекундах
+     * @param millis    time to wait in millis
      */
     public void sleep(int millis) {
 
@@ -38,31 +29,29 @@ public class CommonFunctions {
     }
 
     /**
-     * Ожидание в течении заданного времени
-     *
-     * @param seconds число в секундах сколько необходимо ожидать
+     * @param seconds   time to wait in seconds
      */
     public void sleeps(int seconds) {
         sleep(seconds * 1000);
     }
 
     /**
-     * Ожидаем условие, если не выполняется, то ждем до момента пока условие не выполнится или не
-     * кончится количество повторений
+     * Waiting until condition be execution result be "true" and run action between waiting
      *
-     * @param preCondition       условие, которое выполняется перед ожиданием. Должно возвращаать true, чтобы
-     *                           выйти из ожидания. Пример: exampleString.equal(getPage().mainElement.getText())
-     * @param action             действие, которое выполняется после ожидания. Пример: () -> getPage().refresh()
-     * @param iterCycles         количество повторений preCondition
-     * @param waitCycleInSeconds время между выполнением preCondition в секундах
-     * @return статус выполнения условия
+     * @param condition             expected condition
+     *                              Example: exampleString.equal(getPage().mainElement.getText())
+     * @param action                action between condition check.
+     *                              Example: () -> getPage().refresh()
+     * @param iterCycles            max condition execution count
+     * @param waitCycleInSeconds    wait time in seconds between condition execution
+     * @return                      wait state
      */
-    public Boolean waitFor(Callable<Boolean> preCondition, Runnable action, Integer iterCycles,
+    public Boolean waitFor(Callable<Boolean> condition, Runnable action, Integer iterCycles,
                            Integer waitCycleInSeconds) {
 
         try {
             Integer iter = 0;
-            while (iter < iterCycles && !preCondition.call()) {
+            while (iter < iterCycles && !condition.call()) {
                 iter++;
                 action.run();
                 sleeps(waitCycleInSeconds);
@@ -71,35 +60,33 @@ public class CommonFunctions {
         } catch (Exception e) {
             e.printStackTrace();
             log.error(e.getMessage());
-            throw new Error("При выполнении условия выпала ошибка: " + e.getMessage());
+            throw new Error("Error during waitFor: " + e.getMessage());
         }
     }
 
     /**
-     * Ожидаем условие, если не выполняется, то ждем до момента пока условие не выполнится или не
-     * кончится количество повторений
+     * Waiting until condition be execution result be "true" and run action between waiting
      *
-     * @param preCondition       условие, которое выполняется перед ожиданием. Должно возвращаать false, чтобы
-     *                           выйти из ожидания Пример: exampleString.equal(getPage().mainElement.getText())
-     * @param iterCycles         количество повторений preCondition
-     * @param waitCycleInSeconds время между выполнением preCondition в секундах
-     * @return статус выполнения условия
+     * @param condition             expected condition
+     *                              Example: exampleString.equal(getPage().mainElement.getText())
+     * @param iterCycles            max condition execution count
+     * @param waitCycleInSeconds    wait time in seconds between condition execution
+     * @return                      wait state
      */
-    public Boolean waitFor(Callable<Boolean> preCondition, Integer iterCycles, Integer waitCycleInSeconds) {
+    public Boolean waitFor(Callable<Boolean> condition, Integer iterCycles, Integer waitCycleInSeconds) {
 
-        return waitFor(preCondition, () -> toString(), iterCycles, waitCycleInSeconds);
+        return waitFor(condition, () -> toString(), iterCycles, waitCycleInSeconds);
     }
 
     /**
-     * Ожидаем пока выполнится условие
+     * Waiting until condition be executed and return result
      *
-     * @param preCondition  условие, которое взаимодействует с экземпляром класса, чтобы выдать статус готов
-     *                      ли объект или искать новый экземпляр Пример: (searchedUser) ->
-     *                      validUser(searchedUser) - определяем отвечает ли юзер каким-либо требоваиям
-     * @param postCondition получение экземпляра класса для проведения preCondition
-     * @param iterCycles    количество итераций
-     * @param waitInSeconds количество секунд между циклами
-     * @return найденный экземпляр класса
+     * @param preCondition          expected condition
+     *                              Example: exampleString.equal(getPage().mainElement.getText())
+     * @param iterCycles            max condition execution count
+     * @param postCondition         action for execute between preCondition execution
+     * @param waitInSeconds         wait time in seconds between condition execution
+     * @return                      wait state
      */
     public <T> T waitFor(Function<T, Boolean> preCondition, Callable<T> postCondition,
                          Integer iterCycles, Integer waitInSeconds) {
@@ -121,62 +108,43 @@ public class CommonFunctions {
     }
 
     /**
-     * Прикрепить файл/текст к отчету
+     * Get object content description as text
      *
-     * @param format         формат файла/текста
-     * @param attachment     прикрепляемый объект
-     * @param attachmentName название аттачмента в отчете
-     */
-    public void takeAttachment(AttachmentFormat format, Object attachment, String attachmentName) {
-
-        attachments().takeAttachment(format, attachment, attachmentName);
-    }
-
-    /**
-     * Получаем описание объекта
-     * <p>
-     * Берем поля с аннотацией @Description("название элемента") достаем значение поля, достаем
-     * название элемента и пихаем с String формат для того, чтобы приложить в отчет
-     *
-     * @param object объект
+     * @param object object
      */
     public <T extends DescriptionModel> String getInfo(Object object) {
 
         if (object == null)
             return "null\n";
         try {
-            // Список нативных классов, чтобы отличать от наших кастомных
+            // Default classes
             final List<Class> standardClasses = Arrays.asList(String.class, Boolean.class, Double.class,
                     Integer.class, Long.class, Float.class, Date.class);
             String objectName = "";
             StringBuilder result = new StringBuilder("");
-            // берем аннотацию на классе
+            // Get class object name
             if (object.getClass().isAnnotationPresent(Description.class)) {
                 objectName = object.getClass().getAnnotation(Description.class).value();
                 result = result.append("\n_____| ").append(objectName).append("|_____");
             }
 
-            // Если есть интерфейс который позволяем вернуть данные из объекта, то добавляем эти данные
+            // If object can describe yourself get this information
             if (Arrays.stream(object.getClass().getInterfaces()).anyMatch(interf -> interf.equals(DescriptionModel.class)))
                 result.append("\n").append(((T) object).getDescription());
 
-            // идем по полям
             for (Field field : FieldUtils.getAllFields(object.getClass())) {
                 if (field.isAnnotationPresent(Description.class)) {
 
-                    // объявляем новое найденное поле
-                    result.append("\nПоле ").append(field.getName()).append(" ");
-                    if (standardClasses.stream()
-                            .anyMatch(aClass -> field.getType().equals(aClass))) {
-                        // если поле является станжартным классом то берем значение
+                    result.append("\nField ").append(field.getName()).append(" ");
+                    if (standardClasses.stream().anyMatch(aClass -> field.getType().equals(aClass))) {
+                        // get value of default class
                         result.append("(").append(field.getAnnotation(Description.class).value())
                                 .append("): ")
                                 .append(getValue(field, object))
                                 .append("");
                     } else if (field.getType().equals(List.class)) {
-                        // если список объектов то заходим в объект (если он не стандартный) и
-                        // описываем его элементы
-                        result.append(" +список+:\n").append("+++++++++")
+                        // list description
+                        result.append(" +list+:\n").append("+++++++++")
                                 .append(field.getAnnotation(Description.class).value())
                                 .append("+++++++\n");
                         List list = ((List) getValue(field, object));
@@ -194,20 +162,19 @@ public class CommonFunctions {
                         }
                         result.append("\n++++++++++++++++\n");
                     } else if (!field.getType().isEnum()) {
-                        // если объект не стандартный и не является енамом то заходим внутрь и
-                        // описываем все поля
+                        // Field is object
                         result.append(getInfo(getValue(field, object))
                                 .replaceAll("\\n", "\n\t"));
                     } else if (field.getType().isEnum()) {
-                        // если константа то просто берем значение
-                        result.append("Енам (")
+                        // Get all enum fields
+                        result.append("Enum (")
                                 .append(field.getAnnotation(Description.class).value())
                                 .append(") :")
                                 .append(FieldUtils
                                         .getField(object.getClass(), field.getName(), true)
                                         .get(object));
                     } else {
-                        result.append("не знаем что за поле");
+                        result.append("None");
                     }
                 }
             }

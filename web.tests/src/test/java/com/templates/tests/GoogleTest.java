@@ -17,7 +17,7 @@ public class GoogleTest extends WebTestCase {
     @Test
     @DisplayName("Simple search test")
     @Description("Simply open google.com, type search phrase and see result items")
-    public void simpleSearch() throws Exception {
+    public void simpleSearch() {
         steps.openGoogle();
         steps.enterSearchPhrase("yandex browser");
         steps.search();

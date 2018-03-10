@@ -17,7 +17,7 @@ public class DuckDuckGoTest extends WebTestCase {
     @Test
     @DisplayName("Simple search test")
     @Description("Simply open duckduckgo.com, type search phrase and see result items")
-    public void simpleSearch() throws Exception {
+    public void simpleSearch() {
         steps.openDuckDuckGo();
         steps.enterSearchPhrase("duckduckgo have convenient layouts");
         steps.search();

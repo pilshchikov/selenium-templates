@@ -2,6 +2,8 @@ package com.templates.core;
 
 import com.templates.enums.DriverType;
 import com.templates.providers.SystemProvider;
+import io.github.bonigarcia.wdm.DriverManagerType;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 import org.openqa.selenium.Platform;
@@ -21,7 +23,8 @@ public class Driver {
     private RemoteWebDriver getWebDriver() {
         switch (driverType) {
             case CHROME:
-                return new ChromeDriver(chromeOptions());
+                WebDriverManager.getInstance(DriverManagerType.CHROME).setup();
+                return new ChromeDriver();
             case REMOTE_CHROME:
                 return getRemoteWebDriver(DriverType.CHROME);
             default:
